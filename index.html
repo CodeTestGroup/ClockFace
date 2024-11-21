@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customizable Clock</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    #clock {
+      font-size: 5rem;
+      text-align: center;
+
+    }
+
+    #settingsButton {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    #settingsModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modalContent {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      width: 300px;
+    }
+
+    label, select, input {
+      margin: 5px;
+    }
+
+    .modalButton {
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #555;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .modalButton:hover {
+      background-color: #777;
+    }
+
+    #clockSize {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="clock">Loading...</div>
+
+  <button id="settingsButton" onclick="showSettings()">Settings</button>
+
+  <div id="settingsModal">
+    <div id="modalContent">
+      <h3>Settings</h3>
+      <label for="bgColor">Background Color:</label>
+      <input type="color" id="bgColor" value="#000000"><br>
+
+      <label for="textColor">Text Color:</label>
+      <input type="color" id="textColor" value="#ffffff"><br>
+
+      <label for="timeFormat">Time Format:</label>
+      <select id="timeFormat">
+        <option value="12">12-hour</option>
+        <option value="24">24-hour</option>
+      </select><br>
+
+      <label for="clockSize">Clock Size:</label>
+      <input type="range" id="clockSize" min="2" max="64" step="1" value="5"><br>
+<label for="clockStyle">Clock Style <span style="color: red;">[beta]</span>:</label>
+      <select id="clockStyle">
+        <option value="digital">Digital</option>
+        <option value="analog">Analog</option>
+      </select>
+      <br>
+<h3>ClockFace V1: <a style="color: green" href="https://github.com/codetestgroup/ClockFace">github</a> | <a style="color: green" href="info.html">info</a></h3>
+      <button class="modalButton" onclick="saveSettings()">Save Settings</button>
+      <button class="modalButton" onclick="resetSettings()">Reset Settings</button>
+      <button class="modalButton" onclick="closeSettings()">Close</button>
+
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const format = getCookie('timeFormat') || '12';
+      let hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const clockStyle = getCookie('clockStyle') || 'digital';
+
+      const clockSize = getCookie('clockSize') || '5';
+
+      document.getElementById('clock').style.fontSize = `${clockSize}rem`; // Adjust clock size
+
+      if (clockStyle === 'digital') {
+        if (format === '12') {
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12 || 12; // Convert to 12-hour format
+          document.getElementById('clock').textContent = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+        } else {
+          document.getElementById('clock').textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+      } else if (clockStyle === 'analog') {
+        document.getElementById('clock').textContent = ''; // Placeholder for analog clock
+        // You can add actual analog clock rendering logic here
+      }
+    }
+
+    function showSettings() {
+      document.getElementById('settingsModal').style.display = 'flex';
+    }
+
+    function closeSettings() {
+      document.getElementById('settingsModal').style.display = 'none';
+    }
+
+    function saveSettings() {
+      const bgColor = document.getElementById('bgColor').value;
+      const textColor = document.getElementById('textColor').value;
+      const timeFormat = document.getElementById('timeFormat').value;
+      const clockSize = document.getElementById('clockSize').value;
+      const clockStyle = document.getElementById('clockStyle').value;
+
+      // Save settings in cookies
+      document.cookie = `bgColor=${bgColor};path=/`;
+      document.cookie = `textColor=${textColor};path=/`;
+      document.cookie = `timeFormat=${timeFormat};path=/`;
+      document.cookie = `clockSize=${clockSize};path=/`;
+      document.cookie = `clockStyle=${clockStyle};path=/`;
+
+      applySettings(); // Apply settings immediately
+      closeSettings(); // Close modal after saving
+    }
+
+    function resetSettings() {
+      // Reset to default settings
+      document.getElementById('bgColor').value = '#000000';
+      document.getElementById('textColor').value = '#ffffff';
+      document.getElementById('timeFormat').value = '12';
+      document.getElementById('clockSize').value = '5';
+      document.getElementById('clockStyle').value = 'digital';
+
+      // Clear cookies
+      document.cookie = 'bgColor=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      document.cookie = 'textColor=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      document.cookie = 'timeFormat=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      document.cookie = 'clockSize=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC';
+      document.cookie = 'clockStyle=;path=/;expires=Thu, 01 Jan 1970 00:00:00 UTC';
+
+      applySettings(); // Apply default settings immediately
+    }
+
+    function applySettings() {
+      const bgColor = getCookie('bgColor') || '#000000';
+      const textColor = getCookie('textColor') || '#ffffff';
+      const timeFormat = getCookie('timeFormat') || '12';
+      const clockSize = getCookie('clockSize') || '5';
+      const clockStyle = getCookie('clockStyle') || 'digital';
+
+      document.body.style.backgroundColor = bgColor;
+      document.body.style.color = textColor;
+      document.getElementById('timeFormat').value = timeFormat;
+      document.getElementById('clockSize').value = clockSize;
+      document.getElementById('clockStyle').value = clockStyle;
+      document.getElementById('bgColor').value = bgColor;
+      document.getElementById('textColor').value = textColor;
+    }
+
+    function getCookie(name) {
+      const cookies = document.cookie.split('; ');
+      for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        if (key === name) return value;
+      }
+      return null;
+    }
+
+    // Initialize clock and settings
+    setInterval(updateClock, 1000);
+    updateClock();
+    applySettings();
+  </script>
+</body>
+</html>
