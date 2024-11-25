@@ -1,5 +1,4 @@
 # ClockFace
-<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcodetestgroup%2Fclockface&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hits&edge_flat=false"/></a>
 http://clockface.rf.gd | Open source clock face for old devices
 # Project Roadmap
 - V1 | Version 1 of ClockFace. Adds features like digital clock, diffrent colors - DONE
@@ -10,3 +9,7 @@ ClockFace is a simple website that you can host yourself or use my hosted versio
 You just download the files from here and then place them in your htdocs folder and just open your webserver URL and you have now started hosting ClockFace yourself.
 # How can i use it on my device?
 You can go to my hosted verison of ClockFace at <a href="http://clockface.rf.gd">clockface.rf.gd</a> and just put it on your device web browser in full screen mode
+# Statistics
+<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcodetestgroup%2Fclockface&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hits&edge_flat=false"/></a>
+# Licence
+This projet is using a MIT licence you can veiw it <a href="https://raw.githubusercontent.com/CodeTestGroup/ClockFace/refs/heads/main/LICENSE">here</a>
