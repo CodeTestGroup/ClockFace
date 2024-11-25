@@ -13,3 +13,8 @@ You can go to my hosted verison of ClockFace at <a href="http://clockface.rf.gd"
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcodetestgroup%2Fclockface&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Hits&edge_flat=false"/></a>
 # Licence
 This projet is using a MIT licence you can veiw it <a href="https://raw.githubusercontent.com/CodeTestGroup/ClockFace/refs/heads/main/LICENSE">here</a>
+# Thank you to:
+
+- Thanks to <a>InfinityFree</a> for hosting the <a href="http://clockface.rf.gd">http://clockface.rf.gd</a> website
+- Thanks to [Shields.io](https://shields.io/) for providing the status badge in this README
+- Thanks to all contributors who have helped improve this project
